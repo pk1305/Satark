@@ -1,6 +1,6 @@
 # SATARK — Smart Procurement Monitoring & Risk Review System
 
-![SIH 2026 Prototype](https://img.shields.io/badge/SIH%202026-Prototype-orange?style=for-the-badge)
+![Government Portal](https://img.shields.io/badge/Government-Vigilance%20Portal-navy?style=for-the-badge)
 ![Vercel Status](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-Government%20Demo-blue?style=for-the-badge)
@@ -63,7 +63,7 @@ Computes a multi-factor Risk Score (**0–100**) for every tender across four ri
 - Maintains an immutable event log tracking timestamp, tender ID, action type, officer name, and IP address with CSV export support.
 
 ### 8. 🧪 Custom Tender Risk Analysis Tester
-- Allows officers or hackathon evaluators to input custom tender parameters (Value, Department, Turnover Clause) and execute instant live risk scoring.
+- Allows officers and evaluators to input custom tender parameters (Value, Department, Turnover Clause) and execute instant live risk scoring.
 
 ---
 
@@ -164,4 +164,4 @@ SATARK alignment includes:
 
 ## 📄 License & Disclaimer
 
-This prototype was developed for demonstration purposes under **Smart India Hackathon 2026 (SIH 2026)**. All dataset entries represent synthetic test data and do not reflect live government statistics or official procurement records.
+This platform is developed for demonstration purposes. All dataset entries represent synthetic test data for evaluating public procurement monitoring functionality.
