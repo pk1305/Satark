@@ -1,0 +1,778 @@
+/* SATARK — Modern Government Vigilance Portal Design System */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:wght@500;600;700&display=swap');
+
+:root {
+  --satark-navy-dark: #07192e;
+  --satark-navy-main: #092240;
+  --satark-blue: #0052cc;
+  --satark-blue-light: #e6f0ff;
+  --satark-blue-hover: #003d99;
+  --satark-saffron: #f97316;
+  --satark-green: #16a34a;
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --high: #dc2626;
+  --high-bg: #fef2f2;
+  --medium: #d97706;
+  --medium-bg: #fffbe6;
+  --low: #16a34a;
+  --low-bg: #f0fdf4;
+  --radius: 8px;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.12);
+}
+
+[data-theme="dark"] {
+  --bg: #0b1320;
+  --panel: #131e2e;
+  --border: #223247;
+  --border-strong: #334763;
+  --text: #f1f5f9;
+  --text-muted: #94a3b8;
+  --satark-navy-dark: #040d1a;
+  --satark-navy-main: #07172b;
+  --high-bg: #3a1515;
+  --high: #f87171;
+  --medium-bg: #38270c;
+  --medium: #fbbf24;
+  --low-bg: #0c331e;
+  --low: #4ade80;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--satark-navy-main);
+  margin: 0 0 8px 0;
+  font-weight: 700;
+}
+
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4 {
+  color: #ffffff;
+}
+
+a {
+  color: var(--satark-blue);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+/* ===== 1. Top Utility Strip ===== */
+.satark-top-bar {
+  background: var(--satark-navy-dark);
+  color: #cbd5e1;
+  font-size: 12px;
+  padding: 6px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.satark-top-bar .top-left, .satark-top-bar .top-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.satark-top-bar a, .satark-top-bar button {
+  color: #cbd5e1;
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.satark-top-bar button:hover, .satark-top-bar a:hover {
+  color: #ffffff;
+}
+
+/* ===== 2. White Main Header ===== */
+header.satark-main-header {
+  background: #ffffff;
+  color: var(--satark-navy-main);
+  padding: 14px 28px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 28px;
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] header.satark-main-header {
+  background: #0f1a2a;
+  border-color: #223247;
+}
+
+.satark-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.ashoka-emblem-header {
+  height: 48px;
+  width: auto;
+}
+
+.satark-shield-logo {
+  height: 44px;
+  width: auto;
+}
+
+.satark-brand-titles .title-satark {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--satark-navy-main);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .satark-brand-titles .title-satark {
+  color: #ffffff;
+}
+
+.satark-brand-titles .subtitle-satark {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Center Header Search Box */
+.satark-header-search-wrap {
+  max-width: 580px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.satark-search-pill {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 24px;
+  padding: 4px 16px;
+  transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .satark-search-pill {
+  background: #17263c;
+  border-color: #2e4463;
+}
+
+.satark-search-pill:focus-within {
+  background: #ffffff;
+  border-color: var(--satark-blue);
+  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.15);
+}
+
+.satark-search-pill input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  padding: 8px 6px;
+  font-size: 13.5px;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.satark-search-pill button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.satark-search-pill button:hover {
+  color: var(--satark-blue);
+}
+
+/* Header Right User & Nav Icons */
+.satark-header-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.satark-header-right-actions .action-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.satark-header-right-actions .action-item:hover {
+  color: var(--satark-blue);
+}
+
+.notification-bell-btn {
+  position: relative;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.notification-bell-btn .bell-badge {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background: var(--high);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
+
+.user-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.user-details-text .u-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--satark-navy-main);
+  line-height: 1.2;
+}
+
+[data-theme="dark"] .user-details-text .u-name { color: #ffffff; }
+
+.user-details-text .u-dept {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ===== 3. Dark Sub Navigation Bar ===== */
+nav.satark-sub-nav {
+  background: var(--satark-navy-main);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  overflow-x: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+nav.satark-sub-nav button {
+  background: transparent;
+  border: none;
+  color: #cbd5e1;
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+
+nav.satark-sub-nav button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+nav.satark-sub-nav button.active {
+  background: var(--satark-blue);
+  color: #ffffff;
+  border-bottom: 3px solid #ffffff;
+  border-radius: 4px 4px 0 0;
+}
+
+nav.satark-sub-nav .nav-badge-red {
+  background: var(--high);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+}
+
+/* ===== 4. News Announcement Bar ===== */
+.satark-announcement-bar {
+  background: #fff8f0;
+  border-bottom: 1px solid #ffecd6;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+[data-theme="dark"] .satark-announcement-bar {
+  background: #1c150c;
+  border-color: #38270c;
+}
+
+.announcement-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.announcement-tag {
+  background: var(--satark-saffron);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+.announcement-left marquee {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.announcement-right-link {
+  color: var(--satark-saffron);
+  font-weight: 700;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-left: 16px;
+}
+
+/* ===== 5. Main Hero Banner Section ===== */
+.satark-hero-banner-container {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 42% 58%;
+  min-height: 280px;
+}
+
+[data-theme="dark"] .satark-hero-banner-container {
+  background: #0f1a2a;
+}
+
+.hero-text-content {
+  padding: 36px 32px 36px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-main-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--satark-navy-main);
+  line-height: 1.15;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+[data-theme="dark"] .hero-main-title {
+  color: #ffffff;
+}
+
+.hero-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* Dynamic Tricolor Wave Ribbon at Bottom Left */
+.hero-tricolor-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  pointer-events: none;
+}
+
+.hero-parliament-image {
+  position: relative;
+  background-size: cover;
+  background-position: center right;
+  min-height: 280px;
+}
+
+/* Left Fade Overlay on Image */
+.hero-parliament-image::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 35%;
+  background: linear-gradient(to right, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+[data-theme="dark"] .hero-parliament-image::before {
+  background: linear-gradient(to right, #0f1a2a 0%, rgba(15, 26, 42, 0) 100%);
+}
+
+/* Hero Right Floating Social Bar */
+.hero-floating-social-card {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #ffffff;
+  padding: 6px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 3;
+}
+
+.hero-floating-social-card a {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.soc-ig-icon { background: #e1306c; }
+.soc-fb-icon { background: #1877f2; }
+.soc-x-icon { background: #000000; }
+.soc-yt-icon { background: #ff0000; }
+.soc-li-icon { background: #0a66c2; }
+
+/* ===== 6. Summary KPI 4-Cards Grid ===== */
+.kpi-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.kpi-card-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-card-box:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.kpi-icon-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.kpi-icon-circle.blue { background: #e6f0ff; color: #0052cc; }
+.kpi-icon-circle.red { background: #fef2f2; color: #dc2626; }
+.kpi-icon-circle.orange { background: #fff8f0; color: #f97316; }
+.kpi-icon-circle.green { background: #f0fdf4; color: #16a34a; }
+
+.kpi-details .kpi-num {
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--satark-navy-main);
+  line-height: 1.1;
+}
+
+[data-theme="dark"] .kpi-details .kpi-num { color: #ffffff; }
+
+.kpi-details .kpi-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+.kpi-details .kpi-subtext {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.kpi-disclaimer-note {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* ===== 7. Dashboard 2-Column Grid Layout ===== */
+.dashboard-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 20px;
+}
+
+/* Left Table Panel */
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header-flex h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Risk Score & Priority Badges */
+.risk-score-badge {
+  font-weight: 800;
+}
+
+.risk-score-badge.high { color: #dc2626; }
+.risk-score-badge.medium { color: #d97706; }
+.risk-score-badge.low { color: #16a34a; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.badge.high { background: #fef2f2; color: #dc2626; }
+.badge.medium { background: #fffbe6; color: #d97706; }
+.badge.low { background: #f0fdf4; color: #16a34a; }
+.badge.status { background: #f1f5f9; color: #475569; }
+
+/* Right Sidebar Panels */
+.sidebar-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-panel h4 {
+  font-size: 14px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.quick-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quick-links-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--satark-blue);
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border);
+  font-weight: 600;
+}
+
+.quick-links-list a:hover {
+  text-decoration: none;
+  color: var(--satark-blue-hover);
+}
+
+/* Common Table Styling */
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead th {
+  background: #f8fafc;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+[data-theme="dark"] thead th {
+  background: #172436;
+  color: #94a3b8;
+}
+
+tbody td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+tbody tr:hover {
+  background: #f1f5f9;
+}
+
+[data-theme="dark"] tbody tr:hover {
+  background: #1a2a3e;
+}
+
+/* Modals */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(7, 25, 46, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: var(--satark-navy-main);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-lg);
+  font-size: 13px;
+  border-left: 4px solid var(--satark-blue);
+}
+
+/* Footer */
+footer {
+  background: var(--satark-navy-main);
+  color: #cbd5e1;
+  padding: 28px 24px;
+  font-size: 12.5px;
+  margin-top: 40px;
+  border-top: 3px solid var(--satark-blue);
+}
+
+footer .foot-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+footer a { color: #cbd5e1; margin-right: 18px; }
+
+@media (max-width: 1024px) {
+  .satark-hero-banner-container { grid-template-columns: 1fr; }
+  .hero-parliament-image { min-height: 200px; }
+  .kpi-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid-container { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .kpi-cards-grid { grid-template-columns: 1fr; }
+  header.satark-main-header { grid-template-columns: 1fr; text-align: center; }
+  .satark-header-search-wrap { max-width: 100%; }
+}

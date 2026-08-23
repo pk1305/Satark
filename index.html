@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SATARK — Smart Procurement Monitoring & Risk Review System. Government of India Vigilance Portal.">
+<title>SATARK — Smart Procurement Monitoring &amp; Risk Review System</title>
+<link rel="stylesheet" href="./src/style.css">
+<script type="module" src="./src/app.js"></script>
+</head>
+<body>
+
+<!-- ===== 1. Top Utility Strip ===== -->
+<div class="satark-top-bar">
+  <div class="top-left">
+    <span>🇮🇳 Government of India</span>
+    <button onclick="app.showLanguageModal()">🌐 English ▼</button>
+    <button onclick="app.toggleTheme()">🌙 Dark Mode</button>
+    <span><button onclick="app.setFontSize('small')">C A-</button> <button onclick="app.setFontSize('normal')">A</button> <button onclick="app.setFontSize('large')">A+</button></span>
+    <a href="#mainContent" onclick="document.getElementById('mainContent')?.scrollIntoView({behavior:'smooth'}); return false;">Skip to Main Content</a>
+  </div>
+  <div class="top-right">
+    <a href="#" onclick="app.showRaiseTicketModal(); return false;">Raise a Ticket</a>
+    <a href="#" onclick="goto('help'); return false;">Need Help? ▼</a>
+  </div>
+</div>
+
+<!-- ===== 2. White Main Header ===== -->
+<header class="satark-main-header">
+  <div class="satark-brand-group" onclick="goto('home')">
+    <!-- State Emblem of India SVG -->
+    <svg class="ashoka-emblem-header" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 10 C35 10 25 25 25 40 C25 60 40 75 50 85 C60 75 75 60 75 40 C75 25 65 10 50 10 Z" fill="none" stroke="#092240" stroke-width="4"/>
+      <circle cx="50" cy="40" r="14" fill="none" stroke="#092240" stroke-width="3"/>
+      <path d="M50 26 L50 54 M36 40 L64 40 M40 30 L60 50 M40 50 L60 30" stroke="#092240" stroke-width="2"/>
+      <rect x="20" y="90" width="60" height="12" rx="2" fill="#092240"/>
+      <text x="50" y="122" font-size="14" font-weight="bold" fill="#092240" text-anchor="middle" font-family="serif">सत्यमेव जयते</text>
+    </svg>
+
+    <!-- SATARK Shield Logo SVG -->
+    <svg class="satark-shield-logo" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="120" cy="120" r="114" fill="#ffffff" stroke="#092240" stroke-width="5"/>
+      <circle cx="120" cy="120" r="96" fill="#092240"/>
+      <path d="M120 56 L160 72 V120 C160 148 140 168 120 176 C100 168 80 148 80 120 V72 Z" fill="#f8fafc" stroke="#092240" stroke-width="2"/>
+      <circle cx="136" cy="124" r="14" fill="#f8fafc" stroke="#f97316" stroke-width="4"/>
+      <line x1="146" y1="134" x2="158" y2="146" stroke="#f97316" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+
+    <div class="satark-brand-titles">
+      <div class="title-satark">SATARK</div>
+      <div class="subtitle-satark">Smart Procurement Monitoring &amp; Risk Review System</div>
+    </div>
+  </div>
+
+  <div class="satark-header-search-wrap">
+    <div class="satark-search-pill">
+      <input type="text" id="headerSearchInput" placeholder="Search tender, department, keyword..." onkeypress="if(event.key==='Enter'){ document.getElementById('sTenderNo').value=this.value; goto('search'); runSearch(); }">
+      <button onclick="document.getElementById('sTenderNo').value=document.getElementById('headerSearchInput').value; goto('search'); runSearch();">🔍</button>
+    </div>
+  </div>
+
+  <div class="satark-header-right-actions">
+    <div class="action-item" onclick="goto('monitoring')">📋 Tender Queue</div>
+    <div class="action-item" onclick="goto('review-list')">📑 Reviews ▼</div>
+    <div class="notification-bell-btn" onclick="goto('review-list')" title="Notifications">
+      🔔<span class="bell-badge">3</span>
+    </div>
+    <div class="user-profile-chip">
+      <div class="user-avatar-circle">👤</div>
+      <div class="user-details-text">
+        <div class="u-name">Demo Officer</div>
+        <div class="u-dept">Procurement Department</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== 3. Dark Sub Navigation Bar ===== -->
+<nav class="satark-sub-nav" id="mainNav">
+  <button data-view="home" class="active" onclick="goto('home')">🏠 Home</button>
+  <button data-view="monitoring" onclick="goto('monitoring')">📋 Tender Monitoring</button>
+  <button data-view="review-list" onclick="goto('review-list')">📑 Tenders Requiring Review <span class="nav-badge-red" id="navReviewBadge">4</span></button>
+  <button data-view="search" onclick="goto('search')">🔍 Tender Search</button>
+  <button data-view="previous" onclick="goto('previous')">📂 Previous Procurement</button>
+  <button data-view="reports" onclick="goto('reports')">📊 Reports</button>
+  <button data-view="my-actions" onclick="goto('my-actions')">👤 My Actions</button>
+  <button data-view="audit" onclick="goto('audit')">📜 Audit Trail</button>
+  <button data-view="help" onclick="goto('help')">❓ Help</button>
+</nav>
+
+<!-- ===== 4. News Announcement Bar ===== -->
+<div class="satark-announcement-bar">
+  <div class="announcement-left">
+    <span class="announcement-tag">📢 LATEST ANNOUNCEMENT</span>
+    <marquee scrollamount="6" onmouseover="this.stop()" onmouseout="this.start()">
+      Several tenders have been flagged for review. Procurement officers are requested to record observations in a timely manner.
+    </marquee>
+  </div>
+  <a href="#" class="announcement-right-link" onclick="goto('review-list'); return false;">View All Announcements &gt;</a>
+</div>
+
+<!-- ===================== APP SHELL CONTENT ===================== -->
+<div id="app-shell">
+
+  <main id="mainContent">
+
+    <!-- ===================== HOME DASHBOARD ===================== -->
+    <div id="view-home" class="view active" style="display:block;">
+
+      <!-- 5. Main Hero Banner Container (Matching Screenshot) -->
+      <div class="satark-hero-banner-container">
+        <div class="hero-text-content">
+          <h1 class="hero-main-title">
+            Smart Monitoring.<br>
+            Transparent Procurement.<br>
+            Stronger India.
+          </h1>
+          <div class="hero-subtitle">
+            SATARK helps procurement officers identify potential risks and ensure fair, competitive and transparent procurement.
+          </div>
+          <!-- Tricolor Wave SVG -->
+          <svg class="hero-tricolor-wave" viewBox="0 0 500 30" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,20 Q120,5 250,15 T500,10 L500,30 L0,30 Z" fill="#16a34a" opacity="0.8"/>
+            <path d="M0,15 Q150,25 300,10 T500,20 L500,30 L0,30 Z" fill="#ffffff" opacity="0.9"/>
+            <path d="M0,10 Q100,25 220,8 T500,15 L500,30 L0,30 Z" fill="#f97316" opacity="0.85"/>
+          </svg>
+        </div>
+
+        <div class="hero-parliament-image" style="background-image: url('/parliament_hero.png');">
+          <!-- Floating Social Pill -->
+          <div class="hero-floating-social-card">
+            <a href="#" class="soc-ig-icon" title="Instagram" onclick="return false;">📷</a>
+            <a href="#" class="soc-fb-icon" title="Facebook" onclick="return false;">📘</a>
+            <a href="#" class="soc-x-icon" title="X (Twitter)" onclick="return false;">𝕏</a>
+            <a href="#" class="soc-yt-icon" title="YouTube" onclick="return false;">▶</a>
+            <a href="#" class="soc-li-icon" title="LinkedIn" onclick="return false;">in</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Summary KPI 4-Cards Grid (Matching Screenshot) -->
+      <div class="kpi-cards-grid">
+        <div class="kpi-card-box">
+          <div class="kpi-icon-circle blue">📋</div>
+          <div class="kpi-details">
+            <div class="kpi-num">12,846</div>
+            <div class="kpi-label">Total Tenders Monitored</div>
+            <div class="kpi-subtext">Across all departments</div>
+          </div>
+        </div>
+        <div class="kpi-card-box">
+          <div class="kpi-icon-circle red">⚠️</div>
+          <div class="kpi-details">
+            <div class="kpi-num">184</div>
+            <div class="kpi-label">Tenders Requiring Review</div>
+            <div class="kpi-subtext">High / Medium Priority</div>
+          </div>
+        </div>
+        <div class="kpi-card-box">
+          <div class="kpi-icon-circle orange">🕒</div>
+          <div class="kpi-details">
+            <div class="kpi-num">46</div>
+            <div class="kpi-label">Reviews Pending</div>
+            <div class="kpi-subtext">Awaiting officer action</div>
+          </div>
+        </div>
+        <div class="kpi-card-box">
+          <div class="kpi-icon-circle green">🛍️</div>
+          <div class="kpi-details">
+            <div class="kpi-num">138</div>
+            <div class="kpi-label">Reviews Completed</div>
+            <div class="kpi-subtext">This month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-disclaimer-note">
+        ℹ️ Figures shown are prototype / demonstration data and do not represent actual government statistics.
+      </div>
+
+      <!-- 7. Dashboard 2-Column Grid (Matching Screenshot) -->
+      <div class="dashboard-grid-container">
+        <!-- Left Table Panel -->
+        <div class="panel">
+          <div class="panel-header-flex">
+            <h3>Tenders Requiring Attention</h3>
+            <div style="font-size:12.5px;color:var(--text-muted);display:flex;align-items:center;gap:12px;">
+              <span>Flagged by <strong>SATARK AI Engine</strong> ℹ️</span>
+              <a href="#" onclick="goto('review-list'); return false;" style="font-weight:700;color:var(--satark-blue);">View All &gt;</a>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table id="homeTenderTable"></table>
+          </div>
+        </div>
+
+        <!-- Right Sidebar Links & Ticket Panels -->
+        <div>
+          <div class="sidebar-panel">
+            <h4>Quick Links</h4>
+            <div class="quick-links-list">
+              <a href="#" onclick="goto('search'); return false;"><span>🔍 Search Tenders</span> <span>&gt;</span></a>
+              <a href="#" onclick="goto('review-list'); return false;"><span>📑 My Pending Reviews</span> <span>&gt;</span></a>
+              <a href="#" onclick="goto('reports'); return false;"><span>📊 Reports &amp; Analytics</span> <span>&gt;</span></a>
+              <a href="#" onclick="goto('previous'); return false;"><span>📂 Previous Procurement</span> <span>&gt;</span></a>
+              <a href="#" onclick="goto('help'); return false;"><span>❓ Guidelines &amp; Help</span> <span>&gt;</span></a>
+            </div>
+          </div>
+
+          <div class="sidebar-panel" style="background:#f8fafc;border-color:#cbd5e1;">
+            <h4 style="margin-bottom:8px;border:none;padding:0;">Need Immediate Assistance?</h4>
+            <p style="font-size:12px;color:var(--text-muted);margin:0 0 14px 0;">
+              For urgent matters, please raise a ticket or contact the vigilance cell.
+            </p>
+            <button class="btn secondary" onclick="app.showRaiseTicketModal()" style="width:100%;">Raise a Ticket ↗</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ===================== MONITORING QUEUE ===================== -->
+    <div id="view-monitoring" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Tender Monitoring</div>
+      <h1>Tender Monitoring</h1>
+      <p class="section-note">Overview of all tenders currently being monitored under the procurement review process.</p>
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>All Monitored Tenders</h3>
+        </div>
+        <div class="table-responsive">
+          <table id="monitoringTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TENDERS REQUIRING REVIEW ===================== -->
+    <div id="view-review-list" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Tenders Requiring Review</div>
+      <h1>Tenders Requiring Review</h1>
+      <p class="section-note">Tenders identified for closer review based on procurement indicators. This does not imply wrongdoing; the assigned officer determines the appropriate action.</p>
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Review Queue</h3>
+        </div>
+        <div class="table-responsive">
+          <table id="reviewListTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== SEARCH ===================== -->
+    <div id="view-search" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Tender Search</div>
+      <h1>Search Tenders</h1>
+      <div class="panel">
+        <div class="form-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div class="field"><label>Tender Number</label><input type="text" placeholder="e.g. 2026/GEM/1148" id="sTenderNo"></div>
+          <div class="field"><label>Department</label>
+            <select id="sDept">
+              <option value="All">All Departments</option>
+              <option value="Department of Public Works">Department of Public Works</option>
+              <option value="Department of Telecommunications">Department of Telecommunications</option>
+              <option value="Ministry of Health">Ministry of Health</option>
+              <option value="Ministry of New & Renewable Energy">Ministry of Renewable Energy</option>
+            </select>
+          </div>
+          <div class="field"><label>Procurement Category</label>
+            <select id="sCat">
+              <option value="All">All Categories</option>
+              <option value="IT Equipment">IT Equipment</option>
+              <option value="Networking Equipment">Networking Equipment</option>
+              <option value="Medical Equipment">Medical Equipment</option>
+              <option value="Civil & Electrical Works">Civil &amp; Electrical Works</option>
+            </select>
+          </div>
+          <div class="field"><label>Financial Year</label>
+            <select id="sFy"><option>2026-27</option><option>2025-26</option><option>2024-25</option></select>
+          </div>
+          <div class="field"><label>Review Status</label>
+            <select id="sStatus"><option value="All">All Statuses</option><option value="Pending">Pending</option><option value="Under Review">Under Review</option><option value="Completed">Completed</option></select>
+          </div>
+          <div class="field"><label>Priority Level</label>
+            <select id="sPriority"><option value="All">All Priorities</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select>
+          </div>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;">
+          <button class="btn" onclick="runSearch()">Search</button>
+          <button class="btn secondary" onclick="goto('search')">Reset Filters</button>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Search Results</h3>
+        </div>
+        <div class="table-responsive">
+          <table id="searchResultsTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TENDER DETAILS ===================== -->
+    <div id="view-details" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; <button onclick="goto('review-list')">Tenders Requiring Review</button> &gt; Tender Details</div>
+
+      <div class="steps" id="journeySteps" style="display:flex;gap:10px;margin-bottom:20px;"></div>
+
+      <h1 id="detailsTenderNo">Tender Details</h1>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Tender Information</h3>
+        </div>
+        <div class="kv-grid" id="tenderInfoGrid"></div>
+      </div>
+
+      <div class="panel" id="priorityPanel">
+        <div class="panel-header-flex">
+          <h3>Review Priority</h3>
+        </div>
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;">
+          <div class="priority-block" id="priorityBlock">
+            <div>
+              <div class="tag" id="priorityTag">HIGH PRIORITY</div>
+              <div id="priorityText" style="font-size:13px;margin-top:4px;">Tender flagged for review based on multiple risk indicators.</div>
+            </div>
+          </div>
+          <div id="riskGaugeContainer"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Reasons for Review</h3>
+        </div>
+        <div id="findingsList"></div>
+      </div>
+
+      <div class="panel" style="display:flex;justify-content:space-between;align-items:center;">
+        <button class="btn secondary" onclick="goto('review-list')">Back to Queue</button>
+        <button class="btn" onclick="goto('officer-review')">Proceed to Officer Review &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===================== DOCUMENT REVIEW ===================== -->
+    <div id="view-document" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; <button onclick="goto('details')">Tender Details</button> &gt; Tender Document Review</div>
+      <h1>Tender Document Review</h1>
+      
+      <div class="doc-view" style="display:grid;grid-template-columns:1.4fr 1fr;gap:18px;">
+        <div class="doc-text" id="docText">Loading Tender Document...</div>
+        <div class="finding-side">
+          <div class="fn-label">Finding 01</div>
+          <h4 style="margin-top:6px;">Eligibility Requirement</h4>
+          <p style="font-size:13px;"><strong>Observation:</strong> The turnover requirement appears substantially higher than the estimated contract value.</p>
+          <div class="ref">Reference: Tender Clause 4.2</div>
+          <div class="btnrow" style="margin-top:14px;display:flex;gap:8px;">
+            <button class="btn secondary small" onclick="app.showToast('Clause 4.2 highlighted in document view.')">View Clause</button>
+            <button class="btn small" onclick="app.showToast('Finding marked as reviewed.')">Mark as Reviewed</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:20px;display:flex;justify-content:space-between;">
+        <button class="btn secondary" onclick="goto('details')">Back to Tender Details</button>
+        <button class="btn" onclick="goto('bids')">View Bid Submission Details &rarr;</button>
+      </div>
+    </div>
+
+    <!-- ===================== BID DETAILS ===================== -->
+    <div id="view-bids" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; <button onclick="goto('details')">Tender Details</button> &gt; Bid Submission Details</div>
+      <h1>Bid Submission Details</h1>
+
+      <div class="panel">
+        <div id="bidChartContainer"></div>
+      </div>
+
+      <div class="panel">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Bidder</th>
+                <th>Submitted Amount</th>
+                <th>Position</th>
+                <th>IP Subnet</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="bidsTableBody"></tbody>
+          </table>
+        </div>
+        <div class="obs-box" style="background:#fff8f0;border-left:4px solid var(--satark-saffron);padding:12px;margin-top:14px;border-radius:4px;">
+          <strong>Observation:</strong> The difference between the first and second lowest bids is 0.4%. This pattern has been identified for review.
+        </div>
+        <div style="margin-top:14px;">
+          <button class="btn link-btn" onclick="app.showToast('Detailed statistical analysis is available to authorized system administrators only.')">View Detailed Analysis</button>
+        </div>
+      </div>
+
+      <div class="panel"><button class="btn secondary" onclick="goto('details')">Back to Tender Details</button></div>
+    </div>
+
+    <!-- ===================== PREVIOUS PARTICIPATION ===================== -->
+    <div id="view-participation" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; <button onclick="goto('details')">Tender Details</button> &gt; Previous Participation Records</div>
+      <h1>Previous Participation Records</h1>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Entity Relationship Node Map</h3>
+        </div>
+        <div id="collusionGraphContainer"></div>
+      </div>
+
+      <div class="panel">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Tender</th>
+                <th>Year</th>
+                <th>L1 Bidder</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2024/001</td><td>2024</td><td>Company A</td><td>₹8.1 Cr</td></tr>
+              <tr><td>2024/087</td><td>2024</td><td>Company B</td><td>₹8.2 Cr</td></tr>
+              <tr><td>2025/034</td><td>2025</td><td>Company A</td><td>₹8.4 Cr</td></tr>
+              <tr><td>2025/102</td><td>2025</td><td>Company B</td><td>₹8.3 Cr</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="obs-box" style="background:#fff8f0;border-left:4px solid var(--satark-saffron);padding:12px;margin-top:14px;border-radius:4px;">
+          <strong>Observation:</strong> A recurring pattern of participation and lowest-bid outcomes has been observed among the same firms.
+        </div>
+        <div style="margin-top:14px;">
+          <button class="btn secondary small" onclick="goto('previous')">View Full History</button>
+        </div>
+      </div>
+
+      <div class="panel"><button class="btn secondary" onclick="goto('details')">Back to Tender Details</button></div>
+    </div>
+
+    <!-- ===================== PROCUREMENT COMPARISON ===================== -->
+    <div id="view-comparison" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; <button onclick="goto('details')">Tender Details</button> &gt; Procurement Comparison</div>
+      <h1>Procurement Comparison</h1>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Estimated Value vs. Comparable Previous Procurements</h3>
+        </div>
+        <div id="priceChartContainer"></div>
+        <div class="obs-box" style="background:#fff8f0;border-left:4px solid var(--satark-saffron);padding:12px;margin-top:16px;border-radius:4px;">
+          <strong>Observation:</strong> The current estimate is above the range observed in the selected comparable procurements.
+        </div>
+      </div>
+
+      <div class="panel"><button class="btn secondary" onclick="goto('details')">Back to Tender Details</button></div>
+    </div>
+
+    <!-- ===================== PREVIOUS PROCUREMENT ===================== -->
+    <div id="view-previous" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Previous Procurement</div>
+      <h1>Previous Procurement</h1>
+      <p class="section-note">Previous tenders involving the same department, similar category, quantity, estimated value, or bidders.</p>
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Comparable Procurement History</h3>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr><th>Tender</th><th>Year</th><th>L1 Bidder</th><th>Amount</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2024/001</td><td>2024</td><td>Company A</td><td>₹8.1 Cr</td></tr>
+              <tr><td>2024/087</td><td>2024</td><td>Company B</td><td>₹8.2 Cr</td></tr>
+              <tr><td>2025/034</td><td>2025</td><td>Company A</td><td>₹8.4 Cr</td></tr>
+              <tr><td>2025/102</td><td>2025</td><td>Company B</td><td>₹8.3 Cr</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="obs-box" style="background:#fff8f0;border-left:4px solid var(--satark-saffron);padding:12px;margin-top:14px;border-radius:4px;">
+          <strong>Observation:</strong> A recurring pattern of participation and lowest-bid outcomes has been observed among the same firms.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== OFFICER REVIEW ===================== -->
+    <div id="view-officer-review" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; <button onclick="goto('details')">Tender Details</button> &gt; Officer Review</div>
+      <h1>Officer Review</h1>
+
+      <div class="panel">
+        <div class="kv-grid">
+          <div class="row"><span class="k">Tender No.</span><span class="v" id="orTenderNo">2026/GEM/1148</span></div>
+          <div class="row"><span class="k">Review Priority</span><span class="v" id="orPriority">High Priority</span></div>
+          <div class="row"><span class="k">Findings Reviewed</span><span class="v" id="orFindings">4 Findings</span></div>
+          <div class="row"><span class="k">Officer</span><span class="v">Demo Procurement Officer</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Officer's Action</h3>
+        </div>
+        <div class="radio-group" style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px;">
+          <label style="display:flex;align-items:center;gap:10px;font-weight:600;">
+            <input type="radio" name="action" value="Seek Clarification" checked> Seek Clarification
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;font-weight:600;">
+            <input type="radio" name="action" value="Refer for Further Examination"> Refer for Further Examination
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;font-weight:600;">
+            <input type="radio" name="action" value="No Further Action"> No Further Action
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;font-weight:600;">
+            <input type="radio" name="action" value="Forward to Higher Authority"> Forward to Higher Authority
+          </label>
+        </div>
+
+        <div class="field">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <label style="margin:0;">Officer's Remarks</label>
+            <button class="btn secondary small" onclick="generateAIRemarks()">🤖 Draft Remarks with SATARK AI</button>
+          </div>
+          <textarea id="orRemarks" placeholder="Enter observations and reasons for the decision."></textarea>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn" onclick="submitReview()">Submit Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== CONFIRMATION ===================== -->
+    <div id="view-confirmation" class="view" style="display:none;">
+      <h1>Officer Review</h1>
+      <div class="panel">
+        <div class="confirm-box" style="text-align:center;padding:30px 20px;">
+          <div class="check" style="width:56px;height:56px;border-radius:50%;background:var(--satark-green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px auto;">&#10003;</div>
+          <h2>Review Recorded Successfully</h2>
+
+          <div class="kv-grid" style="max-width:440px;margin:20px auto 0 auto;text-align:left;">
+            <div class="row"><span class="k">Tender No.</span><span class="v" id="cfTenderNo">2026/GEM/1148</span></div>
+            <div class="row"><span class="k">Action</span><span class="v" id="cfAction">Seek Clarification</span></div>
+            <div class="row"><span class="k">Date</span><span class="v" id="cfDate">24 Aug 2026</span></div>
+            <div class="row"><span class="k">Officer</span><span class="v">Demo Procurement Officer</span></div>
+            <div class="row"><span class="k">Reference No.</span><span class="v" id="cfRef">SATARK/REV/2026/09412</span></div>
+          </div>
+
+          <div style="margin-top:24px;">
+            <button class="btn" onclick="goto('review-record')">View Review Record</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== REVIEW RECORD ===================== -->
+    <div id="view-review-record" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Review Record</div>
+      <h1>Review Record</h1>
+      <div class="panel">
+        <div class="kv-grid" id="recordGrid"></div>
+      </div>
+      <div class="panel"><button class="btn secondary" onclick="goto('audit')">Go to Audit Trail</button></div>
+    </div>
+
+    <!-- ===================== AUDIT TRAIL ===================== -->
+    <div id="view-audit" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Audit Trail</div>
+      <h1>Audit Trail</h1>
+      <p class="section-note">Chronological record of review activity across monitored tenders.</p>
+
+      <div class="panel">
+        <div class="table-responsive">
+          <table id="auditTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== MY ACTIONS ===================== -->
+    <div id="view-my-actions" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; My Actions</div>
+      <h1>My Actions</h1>
+      <p class="section-note">Reviews you have submitted and their current status.</p>
+      
+      <div class="panel">
+        <div class="table-responsive">
+          <table id="myActionsTable"></table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== REPORTS ===================== -->
+    <div id="view-reports" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Reports</div>
+      <h1>Reports</h1>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Procurement Review Summary</h3>
+        </div>
+        <p class="section-note">Total tenders reviewed: <strong>138</strong></p>
+        <div class="btnrow" style="display:flex;gap:10px;"><button class="btn secondary small" onclick="app.showToast('Report view generated (prototype).')">View Report</button> <button class="btn small" onclick="app.showToast('Simulated report download started (prototype).')">Download Report</button></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header-flex">
+          <h3>Tenders Requiring Attention</h3>
+        </div>
+        <p class="section-note">High priority: <strong>52</strong> &nbsp; | &nbsp; Medium priority: <strong>132</strong></p>
+        <div class="btnrow" style="display:flex;gap:10px;"><button class="btn secondary small" onclick="app.showToast('Report view generated (prototype).')">View Report</button> <button class="btn small" onclick="app.showToast('Simulated report download started (prototype).')">Download Report</button></div>
+      </div>
+    </div>
+
+    <!-- ===================== HELP ===================== -->
+    <div id="view-help" class="view" style="display:none;">
+      <div class="breadcrumb"><button onclick="goto('home')">Home</button> &gt; Help</div>
+      <h1>Help</h1>
+
+      <div class="panel">
+        <div class="help-q" style="border-bottom:1px solid var(--border);padding:14px 0;">
+          <h4>What is SATARK?</h4>
+          <p>SATARK assists procurement and vigilance officers in identifying tenders that may require closer examination.</p>
+        </div>
+        <div class="help-q" style="border-bottom:1px solid var(--border);padding:14px 0;">
+          <h4>Does SATARK determine wrongdoing?</h4>
+          <p>No. SATARK identifies indicators for review. The final decision remains with the authorized officer.</p>
+        </div>
+        <div class="help-q" style="border-bottom:1px solid var(--border);padding:14px 0;">
+          <h4>What information is considered?</h4>
+          <p>Tender details, tender conditions, bid information, previous procurement records, and participation history.</p>
+        </div>
+        <div class="help-q" style="padding:14px 0;">
+          <h4>What should an officer do after receiving a finding?</h4>
+          <p>Review the supporting information and record an appropriate action.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="foot-inner">
+      <div><strong>Government of India</strong></div>
+      <div>SATARK – Smart Procurement Monitoring &amp; Risk Review System</div>
+      <div style="margin-top:10px;">
+        <a href="#" onclick="return false;">About SATARK</a>
+        <a href="#" onclick="goto('help'); return false;">Help</a>
+        <a href="#" onclick="return false;">Accessibility</a>
+        <a href="#" onclick="return false;">Contact</a>
+        <a href="#" onclick="return false;">Privacy Policy</a>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #1a3048;color:#ffdca6;font-size:12px;">
+        This is a prototype developed for Smart India Hackathon 2026 (SIH 2026 Prototype). It uses demonstration data only and is not an official Government of India website.
+      </div>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>
