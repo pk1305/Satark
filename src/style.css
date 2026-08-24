@@ -747,6 +747,572 @@ tbody tr:hover {
   border-left: 4px solid var(--satark-blue);
 }
 
+/* ===== Chart & Gauge Components ===== */
+
+/* Risk Score Gauge */
+.gauge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+}
+
+.gauge-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.gauge-val-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 1;
+}
+
+.gauge-val-box .score-num {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.gauge-val-box .score-max {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.gauge-details {
+  text-align: center;
+}
+
+.gauge-details .risk-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.gauge-details .risk-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* Bid Spread Chart */
+.bid-chart-wrap {
+  padding: 8px 0;
+}
+
+.bid-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.bid-chart-header .title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.bid-chart-header .subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.bid-bars-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  height: 220px;
+  padding: 0 8px;
+}
+
+.bid-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.bid-bar-col.suspicious {
+  background: rgba(220, 38, 38, 0.04);
+  border-radius: 6px;
+  padding: 6px 4px;
+}
+
+.bid-val-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.bid-diff-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: #f1f5f9;
+}
+
+.bid-diff-tag.l1-tag {
+  background: #f0fdf4;
+  color: var(--low);
+}
+
+.bid-diff-tag.alert-tag {
+  background: #fef2f2;
+  color: var(--high);
+}
+
+.bid-bar-track {
+  width: 100%;
+  max-width: 72px;
+  height: 140px;
+  background: #f1f5f9;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .bid-bar-track {
+  background: #1a2a3e;
+}
+
+.bid-bar-fill {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: height 0.5s ease;
+}
+
+.bid-bar-fill.l1 { background: var(--satark-green); }
+.bid-bar-fill.alert { background: var(--high); }
+.bid-bar-fill.normal { background: var(--satark-blue); }
+
+.bid-bar-fill .bar-pos {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  padding-bottom: 6px;
+}
+
+.bid-company-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bid-ip-badge {
+  font-size: 10px;
+  font-family: monospace;
+  color: var(--high);
+  background: #fef2f2;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+/* Price Comparison Chart */
+.price-chart-wrap {
+  padding: 8px 0;
+}
+
+.price-chart-legend {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.price-chart-legend .leg-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.price-chart-legend .leg-item .box {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.leg-item.current .box { background: var(--satark-saffron); }
+.leg-item.hist .box { background: var(--satark-blue); }
+.leg-item.benchmark .box { background: #94a3b8; }
+
+.price-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  height: 200px;
+  padding: 0 4px;
+}
+
+.price-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.price-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.price-bar-track {
+  width: 100%;
+  max-width: 60px;
+  height: 130px;
+  background: #f1f5f9;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .price-bar-track {
+  background: #1a2a3e;
+}
+
+.price-bar-fill {
+  width: 100%;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.5s ease;
+}
+
+.price-bar-fill.current-bar { background: var(--satark-saffron); }
+.price-bar-fill.hist-bar { background: var(--satark-blue); }
+.price-bar-fill.benchmark-bar { background: #94a3b8; }
+
+.price-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.price-sublabel {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* Collusion Network Graph */
+.graph-wrapper {
+  padding: 8px 0;
+}
+
+.graph-info-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 8px 14px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  color: var(--text);
+}
+
+[data-theme="dark"] .graph-info-banner {
+  background: #3a1515;
+  border-color: #5a2020;
+}
+
+.collusion-svg {
+  max-height: 320px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Tender Details Extras */
+.finding {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+
+.finding:last-child {
+  border-bottom: none;
+}
+
+.finding h4 {
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.finding p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0 0 8px 0;
+}
+
+.finding .btnrow {
+  display: flex;
+  gap: 8px;
+}
+
+.priority-block {
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.priority-block.high { background: var(--high-bg); border-color: #fecaca; }
+.priority-block.medium { background: var(--medium-bg); border-color: #fde68a; }
+.priority-block.low { background: var(--low-bg); border-color: #bbf7d0; }
+
+.priority-block .tag {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.priority-block.high .tag { color: var(--high); }
+.priority-block.medium .tag { color: var(--medium); }
+.priority-block.low .tag { color: var(--low); }
+
+/* Document Review */
+.doc-text {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.7;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.flagged-clause {
+  background: #fef2f2;
+  color: var(--high);
+  padding: 2px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.finding-side {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.fn-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--satark-saffron);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Journey Steps */
+.steps .step {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all 0.15s ease;
+}
+
+.steps .step:hover {
+  background: var(--satark-blue-light);
+  color: var(--satark-blue);
+}
+
+.steps .step.current {
+  background: var(--satark-blue);
+  color: #ffffff;
+  border-color: var(--satark-blue);
+}
+
+/* KV Grid (Key-Value) */
+.kv-grid .row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.kv-grid .row:last-child { border-bottom: none; }
+
+.kv-grid .k {
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.kv-grid .v {
+  color: var(--text);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.breadcrumb button {
+  background: none;
+  border: none;
+  color: var(--satark-blue);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 0;
+}
+
+.breadcrumb button:hover {
+  text-decoration: underline;
+}
+
+/* Section Note */
+.section-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+/* Buttons */
+.btn {
+  background: var(--satark-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--satark-blue-hover);
+}
+
+.btn.secondary {
+  background: #f1f5f9;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn.secondary:hover {
+  background: #e2e8f0;
+}
+
+.btn.small {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.btn.link-btn {
+  background: transparent;
+  color: var(--satark-blue);
+  padding: 0;
+  font-weight: 600;
+}
+
+.btn.link-btn:hover {
+  text-decoration: underline;
+}
+
+[data-theme="dark"] .btn.secondary {
+  background: #1a2a3e;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* Form Fields */
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--panel);
+  transition: border-color 0.15s ease;
+}
+
+.field input:focus, .field select:focus, .field textarea:focus {
+  outline: none;
+  border-color: var(--satark-blue);
+  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Empty Note */
+.empty-note {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px;
+}
+
+/* Main Content Padding */
+main#mainContent {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
 /* Footer */
 footer {
   background: var(--satark-navy-main);
